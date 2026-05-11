@@ -1,0 +1,73 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #f6f1e7;
+  color: #37413d;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  outline: none;
+}
+
+input,
+textarea,
+select {
+  font-family: inherit;
+}
+
+/* Utilidades personalizadas */
+.text-lama-dark {
+  color: #37413d;
+}
+
+.bg-lama-light {
+  background-color: #f6f1e7;
+}
+
+.bg-lama-card {
+  background-color: #ede6d8;
+}
+
+.border-lama-secondary {
+  border-color: #6f7f6d;
+}
+
+.btn-primary {
+  @apply px-4 py-2 bg-lama-primary text-white rounded-lg hover:bg-lama-secondary transition-colors;
+}
+
+.btn-secondary {
+  @apply px-4 py-2 bg-lama-card text-lama-dark rounded-lg hover:bg-lama-secondary hover:text-white transition-colors;
+}
+
+.input-base {
+  @apply w-full px-3 py-2 border border-lama-secondary rounded-lg focus:outline-none focus:ring-2 focus:ring-lama-primary text-lama-dark;
+}
