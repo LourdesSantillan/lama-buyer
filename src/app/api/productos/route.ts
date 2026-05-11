@@ -70,3 +70,40 @@ export async function GET(request: NextRequest) {
     );
   }
 }
+
+export async function POST(request: NextRequest) {
+  try {
+    const body = await request.json();
+    const { titulo, descripcion, precio, imagenUrl, categoria, talle, marca, estado, stock, vendedorId } = body;
+
+    if (!titulo || !precio || !categoria || !talle || !marca) {
+      return NextResponse.json(
+        { error: 'Faltan campos requeridos' },
+        { status: 400 }
+      );
+    }
+
+    const producto = await prisma.producto.create({
+      data: {
+        titulo,
+        descripcion: descripcion || '',
+        precio: parseFloat(precio),
+        imagenUrl: imagenUrl || '',
+        categoria,
+        talle,
+        marca,
+        estado: estado || 'buen estado',
+        stock: stock || 1,
+        vendedorId: vendedorId || 'admin',
+      },
+    });
+
+    return NextResponse.json(producto, { status: 201 });
+  } catch (error) {
+    console.error('Error creating producto:', error);
+    return NextResponse.json(
+      { error: 'Error creating producto' },
+      { status: 500 }
+    );
+  }
+}

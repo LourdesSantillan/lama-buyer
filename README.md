@@ -214,10 +214,53 @@ Para hacer testing manual de los flujos:
 
 ## 🚢 Deploy a Vercel
 
-1. Subir código a GitHub
-2. Conectar repositorio en Vercel
-3. Configurar variables de entorno
-4. Deploy automático
+### Requisitos previos
+- Cuenta en [Vercel](https://vercel.com)
+- Repositorio en GitHub
+- Variables de entorno configuradas
+
+### Pasos para deploy
+
+1. **Subir código a GitHub**
+   ```bash
+   git add .
+   git commit -m "ready for production"
+   git push origin main
+   ```
+
+2. **Conectar en Vercel**
+   - Ir a [vercel.com/new](https://vercel.com/new)
+   - Seleccionar "Import Git Repository"
+   - Seleccionar tu repositorio
+   - Configurar variables de entorno (mismo `.env.local`)
+
+3. **Variables de entorno en Vercel**
+   En el dashboard de Vercel, agregar bajo "Environment Variables":
+   - `DATABASE_URL`: URL de PostgreSQL en producción
+   - `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY`: Clerk prod key
+   - `CLERK_SECRET_KEY`: Clerk secret
+   - `NEXT_PUBLIC_SUPABASE_URL`: (opcional)
+   - `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`: (opcional)
+
+4. **Deploy**
+   - Vercel deployará automáticamente en push a `main`
+   - Revisar logs en "Deployments" tab
+   - La app estará disponible en `https://[proyecto].vercel.app`
+
+### Validaciones antes de deploy
+- [ ] Todas las variables de entorno configuradas
+- [ ] Base de datos PostgreSQL en producción lista
+- [ ] Clerk configurado para producción
+- [ ] Tests pasando localmente
+- [ ] Sin errores en `npm run build`
+- [ ] Sin warnings en console del navegador
+
+### Troubleshooting
+- **Error de conexión a BD**: Verificar `DATABASE_URL` es válida
+- **Error de autenticación Clerk**: Confirmar Clerk keys son de producción
+- **Build timeout**: Aumentar memory en Vercel settings
+- **CORS errors**: Revisar origen en endpoints mock
+
 
 ## 📝 Requisitos Completados
 

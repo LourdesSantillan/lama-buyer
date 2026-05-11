@@ -33,3 +33,24 @@ export type PreferenciaInput = z.infer<typeof preferenciaSchema>;
 export type ItemCarritoInput = z.infer<typeof itemCarritoSchema>;
 export type ActualizarItemCarritoInput = z.infer<typeof actualizarItemCarritoSchema>;
 export type CrearPedidoInput = z.infer<typeof crearPedidoSchema>;
+
+export const productoSchema = z.object({
+  titulo: z.string().min(3, 'Título muy corto'),
+  descripcion: z.string().optional(),
+  precio: z.coerce.number().positive('Precio debe ser positivo'),
+  imagenUrl: z.string().url('URL de imagen inválida').optional(),
+  categoria: z.string().min(1, 'Categoría requerida'),
+  talle: z.string().min(1, 'Talle requerido'),
+  marca: z.string().min(1, 'Marca requerida'),
+  estado: z.enum(['excelente', 'buen estado', 'regular']).optional(),
+  stock: z.coerce.number().int().nonnegative('Stock no puede ser negativo').optional(),
+  vendedorId: z.string().optional(),
+});
+
+export const actualizarPedidoSchema = z.object({
+  estado: z.enum(['pendiente', 'pagado', 'enviado', 'entregado', 'cancelado']),
+});
+
+export type ProductoInput = z.infer<typeof productoSchema>;
+export type ActualizarPedidoInput = z.infer<typeof actualizarPedidoSchema>;
+
