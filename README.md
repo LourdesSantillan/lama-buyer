@@ -47,9 +47,9 @@ Aplicación web para compradores en un marketplace especializado en venta de rop
 
 3. **Configurar variables de entorno**
    ```bash
-   cp .env.example .env.local
+   cp .env.local
    ```
-   
+   **YA ESTA HECHO**
    Editar `.env.local` con:
    - `DATABASE_URL`: URL de conexión a PostgreSQL
    - `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY`: Clave pública de Clerk

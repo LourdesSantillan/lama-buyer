@@ -11,7 +11,7 @@ export default function Home() {
       {/* Header */}
       <header className="bg-lama-primary text-white p-6">
         <div className="max-w-7xl mx-auto flex justify-between items-center">
-          <h1 className="text-3xl font-bold">🦙 Lama</h1>
+          <h1 className="text-3xl font-bold"> Lama</h1>
           <nav className="flex gap-4">
             {isSignedIn ? (
               <>
@@ -48,7 +48,7 @@ export default function Home() {
           {isSignedIn ? (
             <div>
               <h2 className="text-4xl font-bold text-lama-dark mb-6">
-                Bienvenido a Lama 🦙
+                Bienvenido a Lama 
               </h2>
               <p className="text-lg text-lama-secondary mb-8">
                 Compra ropa usada y vintage de la mejor calidad. Descubre moda sostenible.
@@ -63,7 +63,7 @@ export default function Home() {
           ) : (
             <div className="text-center">
               <h2 className="text-4xl font-bold text-lama-dark mb-6">
-                ¡Bienvenido a Lama! 🦙
+                ¡Bienvenido a Lama! 
               </h2>
               <p className="text-lg text-lama-secondary mb-8 max-w-2xl mx-auto">
                 Descubre moda vintage y ropa usada de la mejor calidad.
