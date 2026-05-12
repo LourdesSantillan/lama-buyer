@@ -61,8 +61,8 @@ export default function ProductosPage() {
       );
       const data = await response.json();
 
-      setProductos(data.productos);
-      setTotal(data.total);
+      setProductos(data.productos || []);
+      setTotal(data.total || 0);
     } catch (error) {
       console.error('Error fetching productos:', error);
     } finally {

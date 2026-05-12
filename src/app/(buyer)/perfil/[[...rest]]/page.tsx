@@ -1,6 +1,5 @@
 'use client';
 
-import { useState } from 'react';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
 import { UserProfile } from '@clerk/nextjs';
@@ -14,7 +13,7 @@ export default function PerfilPage() {
         <h1 className="text-3xl font-bold text-lama-dark mb-8">Mi Perfil</h1>
 
         <div className="bg-white p-8 rounded-lg shadow">
-          <UserProfile />
+          <UserProfile routing="hash" />
         </div>
       </main>
 

@@ -1,4 +1,4 @@
-import { auth } from '@clerk/nextjs/server';
+import { auth, currentUser } from '@clerk/nextjs/server';
 import { prisma } from '@/lib/prisma';
 
 export async function syncUserToDB() {
@@ -14,7 +14,7 @@ export async function syncUserToDB() {
 
     if (!comprador) {
       // Obtener info del usuario de Clerk
-      const { user } = await auth();
+      const user = await currentUser();
 
       if (!user) return null;
 

@@ -1,12 +1,16 @@
-import type { Metadata } from 'next';
-import './styles/globals.css';
+import type { Metadata, Viewport } from 'next';
+import '../styles/globals.css';
 import { ClerkProvider, SignedIn, SignedOut, SignInButton, SignUpButton, UserButton } from '@clerk/nextjs'
 import { Inter } from 'next/font/google'
 
 export const metadata: Metadata = {
   title: 'Lama Buyer - Marketplace de Ropa Usada',
   description: 'Compra ropa usada y vintage en nuestro marketplace',
-  viewport: 'width=device-width, initial-scale=1',
+};
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
 };
 
 const interSans = Inter({
@@ -14,7 +18,7 @@ const interSans = Inter({
   subsets: ['latin'],
 })
 
-export default function RootLayout({
+/*export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode
@@ -41,10 +45,10 @@ export default function RootLayout({
       </body>
     </html>
   )
-}
+}*/
 
 
-/*export default function RootLayout({
+export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
@@ -58,4 +62,4 @@ export default function RootLayout({
       </html>
     </ClerkProvider>
   );
-}*/
+}
