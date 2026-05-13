@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
+import type { Prisma } from '@prisma/client';
 
 export async function GET(request: NextRequest) {
   try {
@@ -14,12 +15,10 @@ export async function GET(request: NextRequest) {
 
     const skip = (page - 1) * limit;
 
-    const where: any = {
-      AND: [],
-    };
+    const conditions: Prisma.ProductoWhereInput[] = [];
 
     if (search) {
-      where.AND.push({
+      conditions.push({
         OR: [
           { titulo: { contains: search, mode: 'insensitive' } },
           { descripcion: { contains: search, mode: 'insensitive' } },
@@ -29,29 +28,42 @@ export async function GET(request: NextRequest) {
     }
 
     if (categoria) {
-      where.AND.push({ categoria });
+      conditions.push({ categoria });
     }
 
     if (talle) {
-      where.AND.push({ talle });
+      conditions.push({ talle });
     }
 
-    where.AND.push({
+    conditions.push({
       precio: {
         gte: precioMin,
         lte: precioMax,
       },
     });
 
-    const [productos, total] = await Promise.all([
+    const where: Prisma.ProductoWhereInput | undefined =
+      conditions.length > 0 ? { AND: conditions } : undefined;
+
+    const [productos, total, categorias, talles] = await Promise.all([
       prisma.producto.findMany({
-        where: where.AND.length > 0 ? where : undefined,
+        where,
         skip,
         take: limit,
         orderBy: { createdAt: 'desc' },
       }),
       prisma.producto.count({
-        where: where.AND.length > 0 ? where : undefined,
+        where,
+      }),
+      prisma.producto.findMany({
+        select: { categoria: true },
+        distinct: ['categoria'],
+        orderBy: { categoria: 'asc' },
+      }),
+      prisma.producto.findMany({
+        select: { talle: true },
+        distinct: ['talle'],
+        orderBy: { talle: 'asc' },
       }),
     ]);
 
@@ -61,6 +73,8 @@ export async function GET(request: NextRequest) {
       page,
       limit,
       pages: Math.ceil(total / limit),
+      categorias: categorias.map((producto) => producto.categoria),
+      talles: talles.map((producto) => producto.talle),
     });
   } catch (error) {
     console.error('Error fetching productos:', error);

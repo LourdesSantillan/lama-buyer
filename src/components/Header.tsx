@@ -10,7 +10,7 @@ export function Header() {
     <header className="bg-lama-primary text-white p-4 sticky top-0 z-50 shadow-lg">
       <div className="max-w-7xl mx-auto flex justify-between items-center">
         <Link href="/" className="text-2xl font-bold hover:opacity-90 transition">
-          🦙 Lama
+          Lama
         </Link>
 
         <nav className="flex items-center gap-6">

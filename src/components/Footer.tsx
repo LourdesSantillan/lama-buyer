@@ -40,7 +40,7 @@ export function Footer() {
           </div>
         </div>
         <div className="border-t border-lama-secondary pt-6 text-center text-sm opacity-75">
-          <p>&copy; 2024 Lama Marketplace. Todos los derechos reservados.</p>
+          <p>&copy; 2026 Lama Marketplace. Todos los derechos reservados.</p>
         </div>
       </div>
     </footer>

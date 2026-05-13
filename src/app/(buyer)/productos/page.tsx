@@ -32,14 +32,6 @@ export default function ProductosPage() {
     fetchProductos();
   }, [page, filters]);
 
-  useEffect(() => {
-    // Extraer categorías y talles únicos
-    const uniqueCategorias = [...new Set(productos.map((p) => p.categoria))];
-    const uniqueTalles = [...new Set(productos.map((p) => p.talle))];
-    setCategorias(uniqueCategorias);
-    setTalles(uniqueTalles);
-  }, [productos]);
-
   async function fetchProductos() {
     setIsLoading(true);
     try {
@@ -51,9 +43,9 @@ export default function ProductosPage() {
       if (filterObj.search) searchParams.append('search', filterObj.search);
       if (filterObj.categoria) searchParams.append('categoria', filterObj.categoria);
       if (filterObj.talle) searchParams.append('talle', filterObj.talle);
-      if (filterObj.precioMin)
+      if (typeof filterObj.precioMin === 'number')
         searchParams.append('precioMin', filterObj.precioMin.toString());
-      if (filterObj.precioMax)
+      if (typeof filterObj.precioMax === 'number')
         searchParams.append('precioMax', filterObj.precioMax.toString());
 
       const response = await fetch(
@@ -63,6 +55,8 @@ export default function ProductosPage() {
 
       setProductos(data.productos || []);
       setTotal(data.total || 0);
+      setCategorias(data.categorias || []);
+      setTalles(data.talles || []);
     } catch (error) {
       console.error('Error fetching productos:', error);
     } finally {

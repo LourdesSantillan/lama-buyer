@@ -5,13 +5,15 @@ import { useState } from 'react';
 interface FilterSidebarProps {
   categorias: string[];
   talles: string[];
-  onFilterChange: (filters: {
-    categoria?: string;
-    talle?: string;
-    precioMin?: number;
-    precioMax?: number;
-    search?: string;
-  }) => void;
+  onFilterChange: (filters: ProductoFilters) => void;
+}
+
+interface ProductoFilters {
+  categoria?: string;
+  talle?: string;
+  precioMin?: number;
+  precioMax?: number;
+  search?: string;
 }
 
 export function FilterSidebar({
@@ -21,17 +23,21 @@ export function FilterSidebar({
 }: FilterSidebarProps) {
   const [selectedCategoria, setSelectedCategoria] = useState<string>('');
   const [selectedTalle, setSelectedTalle] = useState<string>('');
-  const [precioMin, setPrecioMin] = useState<number>(0);
-  const [precioMax, setPrecioMax] = useState<number>(1000);
+  const [precioMin, setPrecioMin] = useState<string>('0');
+  const [precioMax, setPrecioMax] = useState<string>('1000');
   const [search, setSearch] = useState<string>('');
 
-  const handleFilterChange = () => {
+  const parsePrice = (value: string) =>
+    value === '' ? undefined : Number(value);
+
+  const handleFilterChange = (nextFilters: Partial<ProductoFilters> = {}) => {
     onFilterChange({
       categoria: selectedCategoria,
       talle: selectedTalle,
-      precioMin,
-      precioMax,
+      precioMin: parsePrice(precioMin),
+      precioMax: parsePrice(precioMax),
       search,
+      ...nextFilters,
     });
   };
 
@@ -49,8 +55,9 @@ export function FilterSidebar({
           placeholder="Buscar producto..."
           value={search}
           onChange={(e) => {
-            setSearch(e.target.value);
-            handleFilterChange();
+            const nextSearch = e.target.value;
+            setSearch(nextSearch);
+            handleFilterChange({ search: nextSearch });
           }}
           className="input-base"
         />
@@ -64,8 +71,9 @@ export function FilterSidebar({
         <select
           value={selectedCategoria}
           onChange={(e) => {
-            setSelectedCategoria(e.target.value);
-            handleFilterChange();
+            const nextCategoria = e.target.value;
+            setSelectedCategoria(nextCategoria);
+            handleFilterChange({ categoria: nextCategoria });
           }}
           className="input-base"
         >
@@ -86,8 +94,9 @@ export function FilterSidebar({
         <select
           value={selectedTalle}
           onChange={(e) => {
-            setSelectedTalle(e.target.value);
-            handleFilterChange();
+            const nextTalle = e.target.value;
+            setSelectedTalle(nextTalle);
+            handleFilterChange({ talle: nextTalle });
           }}
           className="input-base"
         >
@@ -111,8 +120,9 @@ export function FilterSidebar({
             min="0"
             value={precioMin}
             onChange={(e) => {
-              setPrecioMin(Number(e.target.value));
-              handleFilterChange();
+              const nextPrecioMin = e.target.value;
+              setPrecioMin(nextPrecioMin);
+              handleFilterChange({ precioMin: parsePrice(nextPrecioMin) });
             }}
             placeholder="Min"
             className="input-base w-1/2"
@@ -122,8 +132,9 @@ export function FilterSidebar({
             max="10000"
             value={precioMax}
             onChange={(e) => {
-              setPrecioMax(Number(e.target.value));
-              handleFilterChange();
+              const nextPrecioMax = e.target.value;
+              setPrecioMax(nextPrecioMax);
+              handleFilterChange({ precioMax: parsePrice(nextPrecioMax) });
             }}
             placeholder="Max"
             className="input-base w-1/2"
@@ -139,8 +150,8 @@ export function FilterSidebar({
         onClick={() => {
           setSelectedCategoria('');
           setSelectedTalle('');
-          setPrecioMin(0);
-          setPrecioMax(1000);
+          setPrecioMin('0');
+          setPrecioMax('1000');
           setSearch('');
           onFilterChange({});
         }}
