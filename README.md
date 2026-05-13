@@ -1,4 +1,4 @@
-# 🦙 Lama Buyer - Marketplace de Ropa Usada
+# Lama Buyer - Marketplace de Ropa Usada
 
 Aplicación web para compradores en un marketplace especializado en venta de ropa usada y vintage.
 
@@ -31,46 +31,6 @@ Aplicación web para compradores en un marketplace especializado en venta de rop
 - npm o yarn
 - PostgreSQL
 - Cuenta en Clerk
-
-### Pasos
-
-1. **Clonar el repositorio**
-   ```bash
-   git clone https://github.com/LourdesSantillan/lama-buyer.git
-   cd lama-buyer
-   ```
-
-2. **Instalar dependencias**
-   ```bash
-   npm install
-   ```
-
-3. **Configurar variables de entorno**
-   ```bash
-   cp .env.local
-   ```
-   **YA ESTA HECHO**
-   Editar `.env.local` con:
-   - `DATABASE_URL`: URL de conexión a PostgreSQL
-   - `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY`: Clave pública de Clerk
-   - `CLERK_SECRET_KEY`: Clave secreta de Clerk
-
-4. **Migrar base de datos**
-   ```bash
-   npm run prisma:migrate
-   ```
-
-5. **Cargar datos de prueba (seed)**
-   ```bash
-   npm run prisma:seed
-   ```
-
-6. **Iniciar servidor de desarrollo**
-   ```bash
-   npm run dev
-   ```
-
-   La aplicación estará disponible en `http://localhost:3000`
 
 ## 📁 Estructura del Proyecto
 
@@ -137,43 +97,6 @@ La aplicación utiliza Clerk para autenticación. El flujo es:
 2. Clerk crea el usuario
 3. Se sincroniza automáticamente a la base de datos Prisma
 4. Se crean preferencias de comprador por defecto
-
-## 💾 Modelo de Datos
-
-### Comprador
-- ID único
-- Email
-- Nombre
-- DNI, teléfono
-- Dirección de envío
-- Relación con Clerk
-
-### Producto
-- Título, descripción
-- Precio
-- Imagen
-- Categoría, talle, marca
-- Estado (excelente, buen estado, regular)
-- Stock
-
-### ItemCarrito
-- Referencia a comprador
-- Referencia a producto
-- Cantidad
-- Precio unitario
-
-### Pedido
-- Número de orden
-- Estado (pendiente, pagado, enviado, entregado)
-- Montos (producto, envío, total)
-- Dirección de envío
-- Método de pago
-
-### EstadoEnvio
-- Código de seguimiento
-- Empresa logística
-- Estado actual
-- Historial de estados
 
 ## 🧪 Testing
 
@@ -262,28 +185,3 @@ Para hacer testing manual de los flujos:
 - **CORS errors**: Revisar origen en endpoints mock
 
 
-## 📝 Requisitos Completados
-
-✅ Páginas y componentes reutilizables en Next.js  
-✅ API propia con REST endpoints  
-✅ Base de datos PostgreSQL propia  
-✅ Autenticación (Clerk)  
-✅ Panel básico de administración  
-✅ Búsqueda y paginación  
-✅ Manejo de errores y 404  
-✅ Validación de formularios (Zod)  
-✅ Accesibilidad básica  
-✅ Consumo de API externa (mocks)  
-✅ Datos precargados (seed)  
-
-## 🤝 Contribución
-
-Este proyecto es parte del marketplace Lama. Para cambios importantes, consulta con el equipo.
-
-## 📞 Soporte
-
-Para problemas o preguntas, contactar a: info@lama.com
-
----
-
-**Hecho con 🦙 por Lourdes Santillan**
